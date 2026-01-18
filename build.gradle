@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.main'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+def flinkVersion = '1.18.1'
+dependencies {
+    // Flink core
+    implementation "org.apache.flink:flink-streaming-java:${flinkVersion}"
+    implementation "org.apache.flink:flink-clients:${flinkVersion}"
+    // (선택) 로그 보기용
+    runtimeOnly "org.slf4j:slf4j-simple:2.0.9"
+}
+
