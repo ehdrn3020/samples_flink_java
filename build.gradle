@@ -22,5 +22,11 @@ dependencies {
     implementation "org.apache.flink:flink-clients:${flinkVersion}"
     // (선택) 로그 보기용
     runtimeOnly "org.slf4j:slf4j-simple:2.0.9"
+    // Kafka Source
+    implementation "org.apache.flink:flink-connector-kafka:3.1.0-1.18"
+    // ClickHouse Sink
+    implementation "org.apache.flink:flink-connector-jdbc:3.1.2-1.18"
+    implementation "com.clickhouse:clickhouse-jdbc:0.6.3"
+
 }
 
