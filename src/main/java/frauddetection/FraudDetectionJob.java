@@ -5,6 +5,7 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import frauddetection.model.Alert;
 import frauddetection.model.Transaction;
 import frauddetection.source.TransactionSource;
+import frauddetection.sink.AlertSink;
 
 public class FraudDetectionJob {
 
@@ -24,7 +25,7 @@ public class FraudDetectionJob {
                 .name("fraud-detector");
 
         alerts
-                .print()
+                .addSink(new AlertSink())
                 .name("alert-sink");
 
         env.execute("Fraud Detection Job");
