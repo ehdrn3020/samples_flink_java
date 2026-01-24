@@ -10,7 +10,7 @@
 
 ## clickhouse table DDL
 ```declarative
-CREATE TABLE sp_dw_db.user_user
+CREATE TABLE test_db.user_tbl
 (
 event_date Date,
 content_id UInt64,

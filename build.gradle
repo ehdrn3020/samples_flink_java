@@ -27,6 +27,6 @@ dependencies {
     // ClickHouse Sink
     implementation "org.apache.flink:flink-connector-jdbc:3.1.2-1.18"
     implementation "com.clickhouse:clickhouse-jdbc:0.6.3"
-
+    implementation "org.apache.httpcomponents:httpclient:4.5.14"
 }
 
