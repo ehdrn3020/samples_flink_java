@@ -7,7 +7,7 @@ import kafkatoclickhouse.model.UserEvent;
 
 import java.io.IOException;
 
-public class UserEventSource implements DeserializationSchema<UserEvent> {
+public class DeserializeUserEventSource implements DeserializationSchema<UserEvent> {
 
     private static final ObjectMapper mapper = new ObjectMapper();
 

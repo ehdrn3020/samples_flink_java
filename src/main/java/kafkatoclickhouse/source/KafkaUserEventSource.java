@@ -11,11 +11,11 @@ public class KafkaUserEventSource {
 
         return KafkaSource.<UserEvent>builder()
                 .setBootstrapServers("localhost:9092")
-                .setTopics("transactions-topic")
+                .setTopics("kafka-test")
                 .setGroupId("kafka-to-clickhouse-group")
                 // Kafka offset 초기화 로직 - consumer group이 마지막으로 처리한 지점부터 이어서
                 .setStartingOffsets(OffsetsInitializer.committedOffsets(OffsetResetStrategy.LATEST))
-                .setValueOnlyDeserializer(new UserEventSource())
+                .setValueOnlyDeserializer(new DeserializeUserEventSource())
                 .build();
 
         /*

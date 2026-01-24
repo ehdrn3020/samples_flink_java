@@ -22,7 +22,7 @@ public class KafkaToClickhouseJob {
 //        final StreamExecutionEnvironment env = createOperateEnvironment(); // Operate 환경
          final StreamExecutionEnvironment env = createLocalEnvironment(); // Local 환경
 
-        DataStream<UserEvent> source_kafka_user_event = env.fromSource(
+         DataStream<UserEvent> source_kafka_user_event = env.fromSource(
             KafkaUserEventSource.get(),
             WatermarkStrategy.noWatermarks(),
             "KafkaUserEventSource"
@@ -31,7 +31,7 @@ public class KafkaToClickhouseJob {
         DataStream<UserEvent> userStream = source_kafka_user_event
             // contentId = 1234 제외
             .filter(e -> e.getContentId() != 1234)
-            .name("filter-contentId-1234")
+            .name("FilterContentId-1234")
             .keyBy(UserEvent::getContentId);
 
         userStream
@@ -56,16 +56,11 @@ public class KafkaToClickhouseJob {
 
     // Local 환경
     public static StreamExecutionEnvironment createLocalEnvironment(){
-        Configuration configuration = new Configuration();
-        configuration.setInteger(RestOptions.PORT, 8081);     // Web UI 포트
-        configuration.setString(RestOptions.BIND_ADDRESS, "0.0.0.0"); // 외부 접근 허용
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(configuration);
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setRuntimeMode(RuntimeExecutionMode.STREAMING); //스트리밍 모드 (Kafka 필수)
         env.enableCheckpointing(10_000); // 1분
         env.setStateBackend(new HashMapStateBackend());
-        env.getCheckpointConfig().setTolerableCheckpointFailureNumber(1); // retry 1 번
         env.getCheckpointConfig().setCheckpointingMode(CheckpointingMode.EXACTLY_ONCE);
-        env.getCheckpointConfig().setExternalizedCheckpointCleanup(CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION);
         return env;
     }
 }

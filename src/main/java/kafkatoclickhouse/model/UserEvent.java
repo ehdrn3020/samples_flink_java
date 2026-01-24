@@ -1,12 +1,20 @@
 package kafkatoclickhouse.model;
 
 import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserEvent implements Serializable {
 
+    @JsonProperty("event_date")
     private String eventDate;
+
+    @JsonProperty("content_id")
     private long contentId;
+
+    @JsonProperty("view_cnt")
     private long viewCnt;
+
+    @JsonProperty("gift_cnt")
     private long giftCnt;
 
     public UserEvent() {}
